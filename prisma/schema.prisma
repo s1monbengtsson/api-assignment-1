@@ -1,8 +1,47 @@
 generator client {
-  provider = "prisma-client-js"
+    provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "mysql"
-  url      = env("DATABASE_URL")
+    provider = "mysql"
+    url      = env("DATABASE_URL")
+}
+
+model Product {
+    id             Int          @id @default(autoincrement()) @db.UnsignedInt
+    name           String
+    description    String       @db.VarChar(255)
+    price          Int          @db.UnsignedInt
+    images         Json         @default("{}")
+    stock_status   String
+    stock_quantity Int
+    order_items    OrderItems[]
+}
+
+model Order {
+    id                  Int          @id @default(autoincrement()) @db.UnsignedInt
+    customer_first_name String
+    customer_last_name  String
+    customer_address    String
+    customer_postcode   String
+    customer_city       String
+    customer_email      String
+    customer_phone      Int?
+    order_total         Int
+    order_date          DateTime
+    created_at          DateTime     @default(now())
+    updated_at          DateTime     @updatedAt
+    order_items         OrderItems[]
+}
+
+model OrderItems {
+    product_id Int @unique
+    qty        Int
+    item_price Int
+    item_total Int
+
+    Product   Product? @relation(fields: [productId], references: [id])
+    productId Int?     @db.UnsignedInt
+    Order     Order?   @relation(fields: [orderId], references: [id])
+    orderId   Int?     @db.UnsignedInt
 }
