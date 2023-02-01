@@ -21,14 +21,5 @@ router.get('/:resourceId', show)
  */
 router.post('/', [], store)
 
-/**
- * PATCH /resource/:resourceId
- */
-router.patch('/:resourceId', [], update)
-
-/**
- * DELETE /resource/:resourceId
- */
-router.delete('/:resourceId', destroy)
 
 export default router
