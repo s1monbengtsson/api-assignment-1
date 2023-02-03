@@ -11,7 +11,7 @@ export const index = async (req: Request, res: Response) => {
         const products = await prisma.product.findMany()
 
         res.send({
-            "status": "success",
+            status: "success",
             data: products
         })
     } catch (err) {
@@ -31,6 +31,9 @@ export const show = async (req: Request, res: Response) => {
         const product = await prisma.product.findUniqueOrThrow({
             where: {
                 id: productId
+            },
+            include: {
+                order_items: true
             }
         })
         res.send(product)
@@ -41,8 +44,6 @@ export const show = async (req: Request, res: Response) => {
         })
     }
 }
-
-
 
 // creates a new resource
 export const store = async (req: Request, res: Response) => {
