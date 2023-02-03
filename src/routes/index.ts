@@ -14,8 +14,10 @@ router.get('/', (req, res) => {
     })
 })
 
+router.use('/orders', orders)
 router.use('/products', products)
 
-router.use('/orders', orders)
+router.post('/products', products)
+
 
 export default router
