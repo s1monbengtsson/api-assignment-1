@@ -20,6 +20,7 @@ model Product {
 
 model Order {
     id                  Int          @id @default(autoincrement()) @db.UnsignedInt
+    order_date          DateTime     @default(now())
     customer_first_name String
     customer_last_name  String
     customer_address    String
@@ -28,14 +29,16 @@ model Order {
     customer_email      String
     customer_phone      String?
     order_total         Int          @db.UnsignedInt
+    created_at          DateTime     @default(now())
+    updated_at          DateTime     @default(now())
     order_items         OrderItems[]
 }
 
 model OrderItems {
     id         Int @id @default(autoincrement()) @db.UnsignedInt
     order_id   Int @db.UnsignedInt
-    product_id Int @db.UnsignedInt
     qty        Int @db.UnsignedInt
+    product_id Int @db.UnsignedInt
     item_price Int @db.UnsignedInt
     item_total Int @db.UnsignedInt
 
