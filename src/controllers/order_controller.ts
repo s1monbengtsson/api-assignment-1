@@ -11,14 +11,13 @@ export const index = async (req: Request, res: Response) => {
     try {
         const orders = await prisma.order.findMany()
 
-        res.send({
+        res.status(200).send({
             status: "success",
             data: orders
         })
     } catch (err) {
-        debug("Error found when finding all orders")
         res.status(500).send({
-            message: "Could not find orders"
+            message: "Something went wrong"
         })
     }
 }
@@ -38,10 +37,13 @@ export const show = async (req: Request, res: Response) => {
                 order_items: true
             }
         })
-        res.send(order)
+        res.status(200).send({
+            status: "success",
+            data: order
+        })
 
     } catch (err) {
-        res.status(400).send({
+        res.status(404).send({
             message: "Could not find order"
         })
     }

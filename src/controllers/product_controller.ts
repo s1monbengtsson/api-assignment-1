@@ -17,7 +17,7 @@ export const index = async (req: Request, res: Response) => {
     } catch (err) {
         debug("Error found when finding all products")
         res.status(500).send({
-            message: "Could not find products"
+            message: "Something went wrong"
         })
     }
 }
@@ -31,9 +31,6 @@ export const show = async (req: Request, res: Response) => {
         const product = await prisma.product.findUniqueOrThrow({
             where: {
                 id: productId
-            },
-            include: {
-                order_items: true
             }
         })
         res.send(product)
@@ -57,23 +54,26 @@ export const store = async (req: Request, res: Response) => {
         })
     }
 
+    const { id, name, description, price, images, stock_status, stock_quantity } = req.body
+
     try {
         const product = await prisma.product.create({
-            data: {
-                id: req.body.id,
-                name: req.body.name,
-                description: req.body.description,
-                price: req.body.price,
-                images: req.body.images,
-                stock_status: req.body.stock_status,
-                stock_quantity: req.body.stock_quantity,
+            data:
+            {
+                id,
+                name,
+                description,
+                price,
+                images,
+                stock_status,
+                stock_quantity,
             }
         })
         res.send(product)
 
     } catch (err) {
         res.status(500).send({
-            message: "Could not create a new product."
+            message: "Could not create product."
         })
     }
 }
