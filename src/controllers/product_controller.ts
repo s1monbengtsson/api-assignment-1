@@ -10,7 +10,7 @@ export const index = async (req: Request, res: Response) => {
     try {
         const products = await prisma.product.findMany()
 
-        res.send({
+        res.status(200).send({
             status: "success",
             data: products
         })
@@ -33,10 +33,13 @@ export const show = async (req: Request, res: Response) => {
                 id: productId
             }
         })
-        res.send(product)
+        res.status(200).send({
+            status: "success",
+            data: product
+        })
 
     } catch (err) {
-        res.status(400).send({
+        res.status(404).send({
             message: "Could not find product"
         })
     }
@@ -69,7 +72,10 @@ export const store = async (req: Request, res: Response) => {
                 stock_quantity,
             }
         })
-        res.send(product)
+        res.status(201).send({
+            status: "success",
+            data: product
+        })
 
     } catch (err) {
         res.status(500).send({
