@@ -17,6 +17,7 @@ export const index = async (req: Request, res: Response) => {
         })
     } catch (err) {
         res.status(500).send({
+            status: "fail",
             message: "Something went wrong"
         })
     }
@@ -89,7 +90,6 @@ export const store = async (req: Request, res: Response) => {
         })
 
     } catch (err) {
-        debug(err)
         res.status(500).send({
             message: "Could not create order"
         })
