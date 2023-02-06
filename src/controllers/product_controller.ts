@@ -1,8 +1,6 @@
 import { Request, Response } from 'express'
 import { validationResult } from 'express-validator'
 import prisma from '../prisma'
-import Debug from 'debug'
-import { debug } from 'console'
 
 // get all resources
 export const index = async (req: Request, res: Response) => {
@@ -15,7 +13,6 @@ export const index = async (req: Request, res: Response) => {
             data: products
         })
     } catch (err) {
-        debug("Error found when finding all products")
         res.status(500).send({
             message: "Something went wrong"
         })

@@ -1,9 +1,6 @@
 import { Request, Response } from 'express'
 import { validationResult } from 'express-validator'
 import prisma from '../prisma'
-import Debug from 'debug'
-import { debug } from 'console'
-import { resolveNaptr } from 'dns'
 
 // get all resources
 export const index = async (req: Request, res: Response) => {
