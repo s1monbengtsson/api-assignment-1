@@ -11,6 +11,10 @@ export const orderRules = [
     body('customer_postcode').isString().withMessage('Has to be a string').bail().isLength({ min: 5, max: 6 }).withMessage('Has to be between 5 and 6 characters long'),
     body('customer_city').isString().withMessage('Has to be a string').bail().isLength({ min: 2 }).withMessage('Has to be minimum 2 characters long'),
     body('customer_email').isEmail().withMessage('Has to be a valid email'),
-    body('customer_phone')?.isString().withMessage('Has to be a string').bail().isLength({ min: 10, max: 12 }).withMessage('Has to be between 10 and 12 characters long')
+    body('customer_phone')?.isString().withMessage('Has to be a string').bail().isLength({ min: 10, max: 12 }).withMessage('Has to be between 10 and 12 characters long'),
+    body('order_items.*.product_id').isInt({min:1}).withMessage('Cannot be 0'),
+    body('order_items.*.qty').isInt({min:1}).withMessage('Cannot be 0'),
+    body('order_items.*.item_price').isInt({min:1}).withMessage('Cannot be 0'),
+    body('order_items.*.item_total').isInt({min:1}).withMessage('Cannot be 0'),
 ]
 
